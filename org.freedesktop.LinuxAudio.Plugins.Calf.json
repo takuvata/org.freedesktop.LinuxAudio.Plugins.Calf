@@ -32,8 +32,7 @@
             },
             "cleanup": [
               "*.a",
-              "*.la",
-              "/share/doc"
+              "*.la"
             ],
             "post-install": [
                 "install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo org.freedesktop.LinuxAudio.Plugins.Calf.metainfo.xml",
