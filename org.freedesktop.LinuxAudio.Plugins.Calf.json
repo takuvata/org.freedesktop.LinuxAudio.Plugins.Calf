@@ -12,25 +12,30 @@
         "prepend_path": "/app/extensions/Plugins/Calf/bin",
         "prepend-pkg-config-path": "/app/extensions/Plugins/Calf/lib/pkgconfig"
     },
+    "cleanup": [
+        "/lib/lv2",
+        "/share/doc",
+        "/share/man"
+    ],
     "modules": [
-        "shared-modules/linux-audio/fluidsynth2.json",
+        "shared-modules/linux-audio/fluidsynth2-static.json",
         "shared-modules/linux-audio/lv2.json",
         "shared-modules/gtk2/gtk2.json",
         {
             "name": "calf",
             "buildsystem": "autotools",
             "config-opts": [
+              "--with-lv2-dir=/app/extensions/Plugins/Calf/lv2"
             ],
             "build-options": {
+              "ldflags": "-lpulse-simple -lpulse -lasound -ldbus-1 -lSDL2 -lreadline -Wl,--export-dynamic -lgmodule-2.0 -pthread -lglib-2.0 -lglib-2.0 "
             },
             "cleanup": [
-              "/lib/calf/calf.a",
-              "/lib/calf/calf.la",
+              "*.a",
+              "*.la",
               "/share/doc"
             ],
             "post-install": [
-                "install -d ${FLATPAK_DEST}/lv2",
-                "mv ${FLATPAK_DEST}/lib/lv2/calf.lv2 ${FLATPAK_DEST}/lv2/",
                 "install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo org.freedesktop.LinuxAudio.Plugins.Calf.metainfo.xml",
                 "appstream-compose --basename=org.freedesktop.LinuxAudio.Plugins.Calf --prefix=${FLATPAK_DEST} --origin=flatpak org.freedesktop.LinuxAudio.Plugins.Calf",
                 "install -Dm644 -t $FLATPAK_DEST/share/licenses/calf/ COPYING"
