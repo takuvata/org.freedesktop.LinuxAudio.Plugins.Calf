@@ -1,0 +1,51 @@
+{
+    "id": "org.freedesktop.LinuxAudio.Plugins.Calf",
+    "branch": "19.08",
+    "runtime": "org.freedesktop.LinuxAudio.BaseExtension",
+    "runtime-version": "19.08",
+    "sdk": "org.freedesktop.Sdk//19.08",
+    "build-extension": true,
+    "appstream-compose": false,
+    "build-options": {
+        "prefix": "/app/extensions/Plugins/Calf",
+        "prepend_ld_library_path": "/app/extensions/Plugins/Calf/lib",
+        "prepend_path": "/app/extensions/Plugins/Calf/bin",
+        "prepend-pkg-config-path": "/app/extensions/Plugins/Calf/lib/pkgconfig"
+    },
+    "modules": [
+        "shared-modules/linux-audio/fluidsynth2.json",
+        "shared-modules/linux-audio/lv2.json",
+        "shared-modules/gtk2/gtk2.json",
+        {
+            "name": "calf",
+            "buildsystem": "autotools",
+            "config-opts": [
+            ],
+            "build-options": {
+            },
+            "cleanup": [
+              "/lib/calf/calf.a",
+              "/lib/calf/calf.la",
+              "/share/doc"
+            ],
+            "post-install": [
+                "install -d ${FLATPAK_DEST}/lv2",
+                "mv ${FLATPAK_DEST}/lib/lv2/calf.lv2 ${FLATPAK_DEST}/lv2/",
+                "install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo org.freedesktop.LinuxAudio.Plugins.Calf.metainfo.xml",
+                "appstream-compose --basename=org.freedesktop.LinuxAudio.Plugins.Calf --prefix=${FLATPAK_DEST} --origin=flatpak org.freedesktop.LinuxAudio.Plugins.Calf",
+                "install -Dm644 -t $FLATPAK_DEST/share/licenses/calf/ COPYING"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/calf-studio-gear/calf/archive/0.90.3.tar.gz",
+                    "sha256": "8781cbd1a81dec59b5923a23141ab2ca74e0e724389e15ffcf3820ace138a46c"
+                },
+                {
+                    "type": "file",
+                    "path": "org.freedesktop.LinuxAudio.Plugins.Calf.metainfo.xml"
+                }
+            ]
+        }
+    ]
+}

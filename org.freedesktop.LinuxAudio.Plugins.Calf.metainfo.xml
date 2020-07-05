@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.freedesktop.LinuxAudio.Plugins.Calf</id>
+  <extends>org.freedesktop.LinuxAudio.BaseExtension</extends>
+  <name>Calf Studio Gear</name>
+  <summary>Calf Studio Gear LV2/VST plugins</summary>
+  <url type="homepage">https://calf-studio-gear.org/</url>
+  <project_license>GPL-2.1</project_license>
+  <metadata_license>CC0-1.0</metadata_license>
+  <releases>
+    <release date="2019-07-16" version="0.90.3" />
+  </releases>
+</component>
